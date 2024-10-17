@@ -1,7 +1,5 @@
-import { RegisterForm } from "./modules/auth/components/RegisterForm";
-
 function App() {
-  return <RegisterForm />;
+  return;
 }
 
 export default App;

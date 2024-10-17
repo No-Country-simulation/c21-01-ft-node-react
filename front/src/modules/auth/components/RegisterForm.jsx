@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-// Esquema de validaciones
 const schema = Yup.object().shape({
   name: Yup.string().required("Por favor ingresa tu nombre completo."),
   email: Yup.string()
@@ -15,10 +14,6 @@ const schema = Yup.object().shape({
 });
 
 export const RegisterForm = () => {
-  // Función para el envío del formulario
-//   const submitForm = (values) => {};
-
-  // Implementación de Formik
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     useFormik({
       initialValues: {
@@ -26,7 +21,6 @@ export const RegisterForm = () => {
         email: "",
         password: "",
       },
-    //   onSubmit: submitForm,
       validationSchema: schema,
     });
 
@@ -61,6 +55,7 @@ export const RegisterForm = () => {
         onBlur={handleBlur}
       />
       {touched.password && errors.password && <span>{errors.password}</span>}
+
       <button type="submit">Registrarme</button>
       <br />
     </form>
