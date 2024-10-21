@@ -1,63 +1,101 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useCustomFormik } from "../hooks/useCustomFormik";
+import { registerSchema } from "../schemas/validationSchemas";
+import lines from "../../../assets/lines.svg";
+import logo from "../../../assets/logotipo.svg";
+import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
-const schema = Yup.object().shape({
-  name: Yup.string().required("Por favor ingresa tu nombre completo."),
-  email: Yup.string()
-    .email("Por favor ingresa un correo electrónico válido")
-    .required("El correo electrónico es obligatorio."),
-  password: Yup.string()
-    .min(8, "La contraseña debe tener al menos 8 caracteres.")
-    .matches(/[A-Z]/, "La contraseña debe tener al menos una mayúscula.")
-    .matches(/\d/, "La contraseña debe tener al menos un número.")
-    .required("La contraseña es obligatoria."),
-});
+import { FormInput } from "./FormInput";
 
 export const RegisterForm = () => {
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
-    useFormik({
-      initialValues: {
+    useCustomFormik(
+      {
         name: "",
         email: "",
         password: "",
       },
-      validationSchema: schema,
-    });
+      registerSchema,
+      (values) => {
+        console.log("Register Form values", values);
+      }
+    );
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Nombre completo"
-        name="name"
-        value={values.name}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {touched.name && errors.name && <span>{errors.name}</span>}
+    <div className="flex h-screen">
+      <div className="w-1/2 flex-shrink-0h-72 bg-gradient-to-b from-teal-600 to-cyan-950 static">
+        <div className="absolute bottom-0 left-0">
+          <img
+            src={lines}
+            alt="Registro"
+            className="w-1/2 h-full object-cover "
+          />
+        </div>
+      </div>
 
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {touched.email && errors.email && <span>{errors.email}</span>}
+      <div className="w-1/2 flex justify-center items-center">
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          className="max-w-md w-full bg-white p-6 space-y-4"
+        >
+          <div>
+            <img src={logo} alt="logo" className="w-1/2 h-full object-cover" />
+          </div>
 
-      <input
-        type={"password"}
-        placeholder="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
-      {touched.password && errors.password && <span>{errors.password}</span>}
+          <div>
+            <h3 className="text-2xl font-bold text-gray-800">Regístrate</h3>
+            <p className="text-sm text-gray-500">Crea tu cuenta</p>
+          </div>
 
-      <button type="submit">Registrarme</button>
-      <br />
-    </form>
+          <FormInput
+            icon={faUser}
+            type="text"
+            placeholder="Nombre completo"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.name}
+            error={errors.name}
+          />
+
+          <FormInput
+            icon={faEnvelope}
+            type="email"
+            placeholder="Correo electrónico"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.email}
+            error={errors.email}
+          />
+
+          <FormInput
+            icon={faLock}
+            type="password"
+            placeholder="Contraseña"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            touched={touched.password}
+            error={errors.password}
+          />
+
+          <button
+            type="submit"
+            className="w-1/2 bg-cyan-700 text-white py-3 rounded-3xl hover:bg-cyan-950 transition duration-300"
+          >
+            Registrarme
+          </button>
+          <div>
+            <a className="text-sm text-gray-400" href="#">
+              ¿Ya tienes una cuenta?
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
