@@ -43,6 +43,6 @@ FormInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
-  touched: PropTypes.bool.isRequired,
+  touched: PropTypes.bool,
   error: PropTypes.string,
 };
