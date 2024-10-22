@@ -18,19 +18,19 @@ export const LoginForm = () => {
     );
 
   return (
-    <div className="w-1/2 flex justify-center items-center">
+    <div className="w-login-form flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="max-w-md w-full bg-white p-6 space-y-4"
+        className="max-w-md w-form-content bg-white space-y-4"
       >
         <div>
           <img src={logo} alt="logo" className="w-2/3 h-full object-cover" />
         </div>
 
         <div>
-          <h3 className="text-2xl font-bold text-gray-800">Bienvenido</h3>
-          <p className="text-sm text-gray-500">Accede a tu Cuenta</p>
+          <h3 className="text-heading font-bold text-text-primary">Bienvenido</h3>
+          <p className="text-body text-text-secondary">Accede a tu Cuenta</p>
         </div>
 
         <FormInput
@@ -58,17 +58,23 @@ export const LoginForm = () => {
         />
 
         <div>
-          <a className="text-sm text-gray-400" href="#">
+          <a className="text-body text-text-link" href="#">
             ¿Has olvidado tu contraseña?
           </a>
         </div>
 
-        <div className="w-full">
+        <div className="w-full flex justify-between">
           <button
             type="submit"
-            className="w-1/2 bg-cyan-700 text-white py-3 rounded-3xl hover:bg-cyan-950 transition duration-300"
+            className="w-button-large bg-primary text-white py-buttonPadding rounded-3xl hover:bg-primary-dark transition duration-300"
           >
             Ingresar
+          </button>
+          <button
+            type=""
+            className="w-button-small border border-primary text-primary mx-2 py-buttonPadding rounded-3xl hover:bg-primary-dark hover:text-white hover:border-primary-dark transition duration-300"
+          >
+            Regístrate
           </button>
         </div>
       </form>
