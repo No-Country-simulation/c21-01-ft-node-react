@@ -9,9 +9,12 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      handleFormSubmit(values, formType);
-      if (formType === "register" || formType === "login") {
+      const result = handleFormSubmit(values, formType);
+
+      if (result.success) {
         navigate("/dashboard");
+      } else {
+        console.error(result.error || "An error occurred");
       }
     },
   });
