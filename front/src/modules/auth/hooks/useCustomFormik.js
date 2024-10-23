@@ -1,9 +1,12 @@
 import { useFormik } from "formik";
 import { handleFormSubmit } from "../services/handleFormSubmit";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const useCustomFormik = (initialValues, validationSchema, formType) => {
-  const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+  const [formResult, setFormResult] = useState({ success: false });
+
+  const closePopup = () => setShowPopup(false);
 
   const formik = useFormik({
     initialValues,
@@ -11,13 +14,10 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     onSubmit: (values) => {
       const result = handleFormSubmit(values, formType);
 
-      if (result.success) {
-        navigate("/dashboard");
-      } else {
-        console.error(result.error || "An error occurred");
-      }
+      setFormResult({ success: result.success });
+      setShowPopup(true);
     },
   });
 
-  return formik;
+  return { ...formik, showPopup, formResult, closePopup };
 };
