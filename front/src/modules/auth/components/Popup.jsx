@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-// import SuccessIcon from "../../../assets/success-icon.svg";
-// import ErrorIcon from "../../../assets/error-icon.svg";
 import { useNavigate } from "react-router-dom";
 
 export const Popup = ({ onClose, success, formType }) => {
