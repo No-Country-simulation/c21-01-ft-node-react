@@ -1,22 +1,20 @@
 import { useCustomFormik } from "../hooks/useCustomFormik";
-import { registerSchema } from "../schemas/validationSchemas";
+import { loginSchema } from "../schemas/validationSchemas";
 
 import { FormInput } from "./FormInput";
-import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logotipo.svg";
-import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
     useCustomFormik(
       {
-        name: "",
         email: "",
         password: "",
       },
-      registerSchema,
-      "register"
+      loginSchema,
+      "login"
     );
 
   return (
@@ -31,21 +29,9 @@ export const RegisterForm = () => {
         </div>
 
         <div>
-          <h3 className="text-heading font-bold text-text-primary">Regístrate</h3>
-          <p className="text-body text-text-secondary">Crea tu cuenta</p>
+          <h3 className="text-heading font-bold text-text-primary">Bienvenido</h3>
+          <p className="text-body text-text-secondary">Accede a tu Cuenta</p>
         </div>
-
-        <FormInput
-          icon={faUser}
-          type="text"
-          placeholder="Nombre completo"
-          name="name"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          touched={touched.name}
-          error={errors.name}
-        />
 
         <FormInput
           icon={faEnvelope}
@@ -71,17 +57,25 @@ export const RegisterForm = () => {
           error={errors.password}
         />
 
-        <button
-          type="submit"
-          className="w-button-large bg-primary text-white py-buttonPadding rounded-3xl hover:bg-primary-dark transition duration-300"
-        >
-          Registrarme
-        </button>
-        
         <div>
-          <Link className="text-body text-text-link" to="/login">
-            ¿Ya tienes una cuenta?
-          </Link>
+          <a className="text-body text-text-link" href="#">
+            ¿Has olvidado tu contraseña?
+          </a>
+        </div>
+
+        <div className="w-full flex justify-between">
+          <button
+            type="submit"
+            className="w-button-large bg-primary text-white py-buttonPadding rounded-3xl hover:bg-primary-dark transition duration-300"
+          >
+            Ingresar
+          </button>
+          <button
+            type=""
+            className="w-button-small border border-primary text-primary mx-2 py-buttonPadding rounded-3xl hover:bg-primary-dark hover:text-white hover:border-primary-dark transition duration-300"
+          >
+            Regístrate
+          </button>
         </div>
       </form>
     </div>
