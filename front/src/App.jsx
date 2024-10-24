@@ -13,25 +13,36 @@ import { DashboardPage } from "./modules/dashboard/pages/DashboardPage";
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
 
+  const routes = [
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />,
+    },
+    {
+      path: "/dashboard",
+      element: (
+        <ProtectedRoute canNavigate={user} redirectPath="/login">
+          <DashboardPage />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "*",
+      element: <Navigate to="/login" replace />,
+    },
+  ];
+
   return (
     <Router>
-      <div className="w-screen h-screen">
-        <Routes>
-          <Route
-            element={
-              <ProtectedRoute canNavigate={user} redirectPath="/login" />
-            }
-          >
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/finance" />
-          </Route>
-
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </div>
+      <Routes>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+      </Routes>
     </Router>
   );
 }

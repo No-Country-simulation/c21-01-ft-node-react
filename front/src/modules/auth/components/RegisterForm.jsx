@@ -2,22 +2,32 @@ import { useCustomFormik } from "../hooks/useCustomFormik";
 import { registerSchema } from "../schemas/validationSchemas";
 
 import { FormInput } from "./FormInput";
+import { Popup } from "./Popup";
 import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logotipo.svg";
 import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 export const RegisterForm = () => {
-  const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
-    useCustomFormik(
-      {
-        name: "",
-        email: "",
-        password: "",
-      },
-      registerSchema,
-      "register"
-    );
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    errors,
+    touched,
+    values,
+    showPopup,
+    formResult,
+    closePopup,
+  } = useCustomFormik(
+    {
+      name: "",
+      email: "",
+      password: "",
+    },
+    registerSchema,
+    "register"
+  );
 
   return (
     <div className="w-login-form flex justify-center items-center">
@@ -31,7 +41,9 @@ export const RegisterForm = () => {
         </div>
 
         <div>
-          <h3 className="text-heading font-bold text-text-primary">Regístrate</h3>
+          <h3 className="text-heading font-bold text-text-primary">
+            Regístrate
+          </h3>
           <p className="text-body text-text-secondary">Crea tu cuenta</p>
         </div>
 
@@ -77,13 +89,21 @@ export const RegisterForm = () => {
         >
           Registrarme
         </button>
-        
+
         <div>
           <Link className="text-body text-text-link" to="/login">
             ¿Ya tienes una cuenta?
           </Link>
         </div>
       </form>
+
+      {showPopup && (
+        <Popup
+          success={formResult.success}
+          formType="register"
+          onClose={closePopup}
+        />
+      )}
     </div>
   );
 };

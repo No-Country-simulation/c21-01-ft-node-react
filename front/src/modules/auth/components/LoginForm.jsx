@@ -2,20 +2,31 @@ import { useCustomFormik } from "../hooks/useCustomFormik";
 import { loginSchema } from "../schemas/validationSchemas";
 
 import { FormInput } from "./FormInput";
+import { Popup } from "./Popup";
+import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logotipo.svg";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 export const LoginForm = () => {
-  const { handleSubmit, handleChange, handleBlur, errors, touched, values } =
-    useCustomFormik(
-      {
-        email: "",
-        password: "",
-      },
-      loginSchema,
-      "login"
-    );
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    errors,
+    touched,
+    values,
+    showPopup,
+    formResult,
+    closePopup,
+  } = useCustomFormik(
+    {
+      email: "",
+      password: "",
+    },
+    loginSchema,
+    "login"
+  );
 
   return (
     <div className="w-login-form flex justify-center items-center">
@@ -29,7 +40,9 @@ export const LoginForm = () => {
         </div>
 
         <div>
-          <h3 className="text-heading font-bold text-text-primary">Bienvenido</h3>
+          <h3 className="text-heading font-bold text-text-primary">
+            Bienvenido
+          </h3>
           <p className="text-body text-text-secondary">Accede a tu Cuenta</p>
         </div>
 
@@ -70,14 +83,22 @@ export const LoginForm = () => {
           >
             Ingresar
           </button>
-          <button
-            type=""
+          <Link
+            to="/register"
             className="w-button-small border border-primary text-primary mx-2 py-buttonPadding rounded-3xl hover:bg-primary-dark hover:text-white hover:border-primary-dark transition duration-300"
           >
             Regístrate
-          </button>
+          </Link>
         </div>
       </form>
+
+      {showPopup && (
+        <Popup
+          success={formResult.success}
+          formType="login"
+          onClose={closePopup}
+        />
+      )}
     </div>
   );
 };
