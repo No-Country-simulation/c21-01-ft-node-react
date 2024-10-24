@@ -7,8 +7,8 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#0E7490', // cyan-800
-          dark: '#164E63', // cyan-950
+          DEFAULT: '#1C768F', // cyan-800
+          dark: '#032539', // cyan-950
         },
         text: {
           primary: '#1F2937', // gray-800
@@ -23,6 +23,7 @@ export default {
         'login-form': '60%',
         'form-content': '100%',
         'button-large': '65%',
+        'button-medium': '45%',
         'button-small': '35%',
       },
       fontSize: {
