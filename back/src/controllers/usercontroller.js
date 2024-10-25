@@ -1,5 +1,6 @@
 import { Users } from '../database/usersModel.js';
 import { validateEmail } from '../Utilities/validations.js';
+import bcypt from 'bcrypt';
 
 export const createUser = async (req, res) => { 
     try{
@@ -8,10 +9,12 @@ export const createUser = async (req, res) => {
         const emailExists = await validateEmail(Email);
         if (emailExists) return res.status(400).send('Email already registered');
 
+        const hashedPassword = await bcypt.hash(Password, 8);
+
         const newUser = await Users.create({
             Name,
             Email,
-            Password
+            Password: hashedPassword
         });
         console.log(newUser);
     
