@@ -1,18 +1,19 @@
-import { Users } from '../database/userModel.js';
+import { Users } from '../database/usersModel.js';
 import { validateEmail } from '../Utilities/validations.js';
 
 export const createUser = async (req, res) => { 
     try{
-        const {name, email, password} = req.body;
-        
-        const emailExists = await validateEmail(email);
+        const {Name, Email, Password} = req.body;
+        console.log("Name:", Name, "Email:", Email, "Password:", Password);
+        const emailExists = await validateEmail(Email);
         if (emailExists) return res.status(400).send('Email already registered');
 
         const newUser = await Users.create({
-            name,
-            email,
-            password
+            Name,
+            Email,
+            Password
         });
+        console.log(newUser);
     
         res.status(201).json({res: newUser, message: 'User successfully created'});
     } catch(err) {
