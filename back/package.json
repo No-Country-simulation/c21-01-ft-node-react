@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js",
-    "dev": "node --env-file=.env --watch src/app.js"
+    "start": "node src/app.js",
+    "dev": "node src/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,10 +14,12 @@
   "dependencies": {
     "axios": "^1.7.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.4"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }
