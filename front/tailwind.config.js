@@ -25,7 +25,6 @@ export default {
         'button-large': '65%',
         'button-medium': '45%',
         'button-small': '35%',
-        'button-xs': '10%',
       },
       fontSize: {
         heading: '1.5rem', // text-2xl
