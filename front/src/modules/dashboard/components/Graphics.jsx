@@ -1,9 +1,11 @@
-import React from "react";
+import { getUserName } from "../utils/getUserName";
 
-const HomePage = () => {
+export const Graphics = () => {
+  const userName = getUserName();
+
   return (
     <div className=" w-full px-4 ">
-      <h1 className="text-2xl font-bold ">¡Bienvenido, David!</h1>
+      <h1 className="text-2xl font-bold ">{`¡Bienvenido, ${userName}!`}</h1>
       <p className="py-0 mb-4">
         Tu panel financiero está listo para para simplificar la gestión de tus
         cuentas
@@ -27,5 +29,3 @@ const HomePage = () => {
     </div>
   );
 };
-
-export default HomePage;

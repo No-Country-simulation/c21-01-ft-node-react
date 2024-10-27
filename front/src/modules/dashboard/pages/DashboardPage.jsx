@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navbar } from "../../dashboard/components/Navbar";
 import { Sidebar } from "../../dashboard/components/Sidebar";
 
-import HomePage from "../../dashboard/pages/HomePage";
-import GraphicsPage from "../../dashboard/pages/GraphicsPage";
-import CalendaryPage from "../../dashboard/pages/CalendaryPage";
+import { Graphics } from "../components/Graphics";
+import { Finance } from "../components/Finance";
+import { Calendar } from "../components/Calendar";
 
 export const DashboardPage = () => {
-  const [activePage, setActivePage] = useState("home");
+  const [activePage, setActivePage] = useState("Graphics");
 
   const renderContent = () => {
     switch (activePage) {
-      case "home":
-        return <HomePage />;
-      case "graphic":
-        return <GraphicsPage />;
-      case "calendary":
-        return <CalendaryPage />;
+      case "graphics":
+        return <Graphics />;
+      case "finance":
+        return <Finance />;
+      case "calendar":
+        return <Calendar />;
       default:
-        return <HomePage />;
+        return <Graphics />;
     }
   };
 
