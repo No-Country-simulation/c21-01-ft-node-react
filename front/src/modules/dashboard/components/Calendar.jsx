@@ -1,9 +1,11 @@
-import React from "react";
+import { getUserName } from "../utils/getUserName";
 
-const CalendaryPage = () => {
+export const Calendar = () => {
+  const userName = getUserName();
+
   return (
     <div className=" w-full px-4 ">
-      <h1 className="text-2xl font-bold ">¡Bienvenido, David!</h1>
+      <h1 className="text-2xl font-bold ">{`¡Bienvenido, ${userName}!`}</h1>
       <p className="py-0 mb-4">
         Escogamos las fechas en las que quieres ver tus movimientos.
       </p>
@@ -26,5 +28,3 @@ const CalendaryPage = () => {
     </div>
   );
 };
-
-export default CalendaryPage;
