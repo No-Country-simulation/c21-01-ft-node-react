@@ -5,7 +5,7 @@ export const sequelize = new Sequelize({
     username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     host: process.env.PG_HOST,
-    port: process.env.PG_PORT,
+    port: process.env.PG_PORT ?? 5432,
     dialect: 'postgres'
 });
 
