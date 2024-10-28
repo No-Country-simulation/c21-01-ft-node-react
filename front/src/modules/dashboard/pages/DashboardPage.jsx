@@ -7,7 +7,7 @@ import { Finance } from "../components/Finance";
 import { Calendar } from "../components/Calendar";
 
 export const DashboardPage = () => {
-  const [activePage, setActivePage] = useState("Graphics");
+  const [activePage, setActivePage] = useState("graphics");
 
   const renderContent = () => {
     switch (activePage) {

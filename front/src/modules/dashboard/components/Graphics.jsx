@@ -16,13 +16,13 @@ export const Graphics = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-slate-200 h-64 rounded-2xl shadow-md shadow-gray-300">
+        <div className="bg-slate-200 h-36 rounded-2xl shadow-md shadow-gray-300">
           <p className="text-center pt-16">Gráfico Pequeño 1</p>
         </div>
-        <div className="bg-slate-200 h-64 rounded-2xl shadow-md shadow-gray-300">
+        <div className="bg-slate-200 h-36 rounded-2xl shadow-md shadow-gray-300">
           <p className="text-center pt-16">Gráfico Pequeño 2</p>
         </div>
-        <div className="bg-slate-200 h-64 rounded-2xl shadow-md shadow-gray-300">
+        <div className="bg-slate-200 h-36 rounded-2xl shadow-md shadow-gray-300">
           <p className="text-center pt-16">Gráfico Pequeño 3</p>
         </div>
       </div>
