@@ -64,5 +64,5 @@ export const Sidebar = ({ setActivePage }) => {
   );
 };
 Sidebar.propTypes = {
-  setActivePage: PropTypes.string.isRequired,
+  setActivePage: PropTypes.func.isRequired,
 };
