@@ -1,14 +1,13 @@
 import { getUserName } from "../utils/getUserName";
 
-export const Graphics = () => {
+export const Calendar = () => {
   const userName = getUserName();
 
   return (
     <div className=" w-full px-4 ">
       <h1 className="text-2xl font-bold ">{`¡Bienvenido, ${userName}!`}</h1>
       <p className="py-0 mb-4">
-        Tu panel financiero está listo para para simplificar la gestión de tus
-        cuentas
+        Escogamos las fechas en las que quieres ver tus movimientos.
       </p>
 
       <div className="bg-slate-200 h-64 w-full mb-4 rounded-2xl shadow-md shadow-gray-300">
