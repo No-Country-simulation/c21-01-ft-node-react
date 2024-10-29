@@ -15,10 +15,6 @@ await initDB();
 app.use(usersRouter);
 app.use(transactionsRouter);
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the Budget Tracker API');
-});
-
 app.listen(port, () => {
   console.log('Server running on port 3000');
 });
