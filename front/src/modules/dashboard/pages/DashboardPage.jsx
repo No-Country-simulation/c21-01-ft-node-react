@@ -4,9 +4,10 @@ import { Sidebar } from "../../dashboard/components/Sidebar";
 
 import { Graphics } from "../components/Graphics";
 import { Finance } from "../components/Finance";
+import { Calendar } from "../components/Calendar";
 
 export const DashboardPage = () => {
-  const [activePage, setActivePage] = useState("graphics");
+  const [activePage, setActivePage] = useState("Graphics");
 
   const renderContent = () => {
     switch (activePage) {
@@ -14,6 +15,8 @@ export const DashboardPage = () => {
         return <Graphics />;
       case "finance":
         return <Finance />;
+      case "calendar":
+        return <Calendar />;
       default:
         return <Graphics />;
     }
@@ -24,7 +27,7 @@ export const DashboardPage = () => {
       <Navbar />
       <div className="flex flex-1">
         <Sidebar setActivePage={setActivePage} />
-        <main className="flex-1 pl-4 pr-4 bg-white">{renderContent()}</main>
+        <main className="flex-1 p-4 bg-white">{renderContent()}</main>
       </div>
     </div>
   );
