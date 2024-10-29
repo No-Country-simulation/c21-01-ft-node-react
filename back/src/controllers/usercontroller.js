@@ -3,6 +3,7 @@ import { Transactions } from '../database/transactionsModel.js';
 import { Users } from '../database/userModel.js';
 import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
+import { Accounts } from '../database/accountsModel.js';
 
 export const createUser = async (req, res) => { 
     try{
@@ -57,9 +58,22 @@ export const loginUser = async (req,res) => {
 }
 
 export const userDashboard = async (req,res) => {
+
+    const { id } = req.params;
+
     try {
+
+        const userInformation = await Accounts.findOne({
+            where: {
+                AccountId: id
+            }
+        })
+
+        if(!userInformation) return res.status(404).json({ message: 'Account not found' })
+
         const transactionType = await Transactions.findAll({
             where: {
+                TransactionId : userInformation.AccountId,
                 TransactionType: {
                     [Op.in] : ['Ingreso','Egreso','Cuenta']
                 },
@@ -84,7 +98,12 @@ export const userDashboard = async (req,res) => {
 
         const gains = incomesAmount - expensesAmount;
 
-        res.status(200).json({gain: gains, expense: expensesAmount, income: incomesAmount})
+        res.status(200).json({
+            gain: gains, 
+            expense: expensesAmount, 
+            income: incomesAmount,
+            account: accountAmount
+        })
 
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err });
