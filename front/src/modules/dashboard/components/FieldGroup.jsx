@@ -4,6 +4,12 @@ import { entryValidationSchema } from "../schemas/validationSchemas";
 export const FieldGroup = ({ data, setData }) => {
   const handleChange = async (index, field, value) => {
     const updatedEntries = [...data];
+    
+    if (!updatedEntries[index]) {
+      console.error("Entrada no válida en el índice:", index);
+      return;
+    }
+
     updatedEntries[index][field] = value;
 
     try {
@@ -31,47 +37,48 @@ export const FieldGroup = ({ data, setData }) => {
   return (
     <div>
       {data.map((entry, index) => (
-        <div key={entry.id} className="flex flex-row justify-between w-full">
-          <div className="w-full justify-start border-b border-gray-400 p-2">
-            {entry.id}
+        <>
+          <div key={entry.id} className="flex flex-row gap-5 w-full pt-4">
+            <div className="w-60 justify-start">{entry.id}</div>
+            <div className="w-60 justify-start">
+              <input
+                type="text"
+                placeholder="Título"
+                value={entry.title}
+                onChange={(e) => handleChange(index, "title", e.target.value)}
+              />
+              {entry.errors?.title && (
+                <p style={{ color: "red" }}>{entry.errors.title}</p>
+              )}
+            </div>
+            <div className="w-60 justify-start">
+              <input
+                type="date"
+                value={entry.date}
+                onChange={(e) => handleChange(index, "date", e.target.value)}
+              />
+              {entry.errors?.date && (
+                <p style={{ color: "red" }}>{entry.errors.date}</p>
+              )}
+            </div>
+            <div className="w-60 justify-start">
+              <span>$ </span>
+              <input
+                type="text"
+                placeholder="Monto"
+                value={entry.amount}
+                onChange={(e) => handleChange(index, "amount", e.target.value)}
+              />
+              {entry.errors?.amount && (
+                <p style={{ color: "red" }}>{entry.errors.amount}</p>
+              )}
+            </div>
           </div>
-          <div className="w-full justify-start border-b border-gray-400 p-2">
-            <input
-              type="text"
-              placeholder="Título"
-              value={entry.title}
-              onChange={(e) => handleChange(index, "title", e.target.value)}
-            />
-            {entry.errors?.title && (
-              <p style={{ color: "red" }}>{entry.errors.title}</p>
-            )}
-          </div>
-          <div className="w-full justify-start border-b border-gray-400 p-2">
-            <input
-              type="date"
-              value={entry.date}
-              onChange={(e) => handleChange(index, "date", e.target.value)}
-            />
-            {entry.errors?.date && (
-              <p style={{ color: "red" }}>{entry.errors.date}</p>
-            )}
-          </div>
-          <div className="w-full justify-start border-b border-gray-400 p-2">
-            <span>$</span>
-            <input
-              type="text"
-              placeholder="Monto"
-              value={entry.amount}
-              onChange={(e) => handleChange(index, "amount", e.target.value)}
-            />
-            {entry.errors?.amount && (
-              <p style={{ color: "red" }}>{entry.errors.amount}</p>
-            )}
-          </div>
-        </div>
+          <hr className="border-b border-gray-200"/>
+        </>
       ))}
       {data.length < 8 && (
-        <button className="p-2" type="button" onClick={handleAddField}>
+        <button className="pt-4" type="button" onClick={handleAddField}>
           +
         </button>
       )}
