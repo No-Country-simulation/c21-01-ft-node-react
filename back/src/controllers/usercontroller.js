@@ -1,6 +1,6 @@
 import { Op, where } from 'sequelize';
 import { Transactions } from '../database/transactionsModel.js';
-import { Users } from '../database/userModel.js';
+import { Users } from '../database/usersModel.js';
 import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
 
@@ -11,7 +11,7 @@ export const createUser = async (req, res) => {
         const emailExists = await validateEmail(Email);
         if (emailExists) return res.status(400).send('Email already registered');
 
-        const hashedPassword = await bcypt.hash(Password, 8);
+        const hashedPassword = await bcrypt.hash(Password, 8);
 
         const newUser = await Users.create({
             Name,
