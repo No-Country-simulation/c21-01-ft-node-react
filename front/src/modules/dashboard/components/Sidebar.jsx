@@ -2,10 +2,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 import homeIcon from "../../../assets/h-icon.svg";
-import calIcon from "../../../assets/c-icon.svg";
 import grafIcon from "../../../assets/g-icon.svg";
 import homeIcon2 from "../../../assets/h-icon2.svg";
-import calIcon2 from "../../../assets/c-icon2.svg";
 import grafIcon2 from "../../../assets/g-icon2.svg";
 
 export const Sidebar = ({ setActivePage }) => {
@@ -42,19 +40,6 @@ export const Sidebar = ({ setActivePage }) => {
             <img
               src={activeIcon === "finance" ? grafIcon2 : grafIcon}
               alt="Finance"
-              className="h-7 w-7"
-            />
-          </li>
-
-          <li
-            className={`py-8 px-6 items-center justify-center cursor-pointer  ${
-              activeIcon === "calendar" ? "text-blue-500" : ""
-            }`}
-            onClick={() => handleIconClick("calendar")}
-          >
-            <img
-              src={activeIcon === "calendar" ? calIcon2 : calIcon}
-              alt="Calendar"
               className="h-7 w-7"
             />
           </li>
