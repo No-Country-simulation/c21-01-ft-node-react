@@ -1,9 +1,8 @@
 import { Op, where } from 'sequelize';
 import { Transactions } from '../database/transactionsModel.js';
-import { Users } from '../database/userModel.js';
+import { Users } from '../database/usersModel.js';
 import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
-import { Accounts } from '../database/accountsModel.js';
 
 export const createUser = async (req, res) => { 
     try{
@@ -63,9 +62,9 @@ export const userDashboard = async (req,res) => {
 
     try {
 
-        const userInformation = await Accounts.findOne({
+        const userInformation = await Users.findOne({
             where: {
-                AccountId: id
+                UserId: id
             }
         })
 
@@ -73,7 +72,7 @@ export const userDashboard = async (req,res) => {
 
         const transactionType = await Transactions.findAll({
             where: {
-                TransactionId : userInformation.AccountId,
+                TransactionId : userInformation.UserId,
                 TransactionType: {
                     [Op.in] : ['Ingreso','Egreso','Cuenta']
                 },

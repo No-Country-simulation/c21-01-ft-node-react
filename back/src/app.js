@@ -1,7 +1,6 @@
 import express from 'express';
 import { sequelize, initDB } from "./database/db.js";
 import "./database/usersModel.js";
-import "./database/accountsModel.js";
 import "./database/transactionsModel.js";
 import router from "./routes/usersroutes.js";
 
