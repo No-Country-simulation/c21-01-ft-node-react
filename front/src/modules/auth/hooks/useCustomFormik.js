@@ -14,9 +14,7 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     onSubmit: (values) => {
       conexionApi(values,formType)
       const result = handleFormSubmit(values, formType);
-      
-
-
+            
       setFormResult({ success: result.success });
       setShowPopup(true);
     },
@@ -42,6 +40,8 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
       }
     } else {
       try {
+
+        console.log(values.name,values.email,values.password)
         const res = await axios.post('http://localhost:3000/users/register', {
           name: values.name,
           email: values.email,

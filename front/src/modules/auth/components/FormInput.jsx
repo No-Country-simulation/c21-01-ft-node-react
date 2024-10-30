@@ -12,6 +12,7 @@ export const FormInput = ({
   touched,
   error,
 }) => {
+
   return (
     <div className="relative">
       <FontAwesomeIcon

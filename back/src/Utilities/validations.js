@@ -12,3 +12,4 @@ export const validateEmail = async (email) => {
         return false;
     }
 }
+
