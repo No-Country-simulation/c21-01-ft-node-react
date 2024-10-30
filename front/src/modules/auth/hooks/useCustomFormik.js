@@ -13,6 +13,7 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     validationSchema,
     onSubmit: (values) => {
       conexionApi(values,formType)
+      console.log(formType);
       const result = handleFormSubmit(values, formType);
             
       setFormResult({ success: result.success });
@@ -24,8 +25,8 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     if(formType == 'login') {
       try {
         const res = await axios.post('http://localhost:3000/users/login', {
-          email: values.email,
-          password: values.password
+          Email: values.email,
+          Password: values.password
         },
         {
           headers: {
@@ -34,18 +35,16 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
         }
       
         )
-      alert(res.message) 
+        alert(res.data.message) 
       } catch (error) {
-        console.log(error.message)
+        alert(error.response)
       }
     } else {
       try {
-
-        console.log(values.name,values.email,values.password)
         const res = await axios.post('http://localhost:3000/users/register', {
-          name: values.name,
-          email: values.email,
-          password: values.password
+          Name: values.name,
+          Email: values.email,
+          Password: values.password
         },
         {
           headers: {
@@ -54,9 +53,9 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
         }
       
         )
-      alert(res.message) 
+        alert(res.data.message) 
       } catch (error) {
-        console.log(error.message)
+        alert(error.response)
       }
     }
     }

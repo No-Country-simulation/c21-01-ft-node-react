@@ -5,13 +5,15 @@ import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
 
 export const createUser = async (req, res) => { 
+    console.log(req.body);
+
     try{
         const {Name, Email, Password} = req.body;
         
         const emailExists = await validateEmail(Email);
         if (emailExists) return res.status(400).send('Email already registered');
 
-        const hashedPassword = await bcypt.hash(Password, 8);
+        const hashedPassword = await bcrypt.hash(Password, 8);
 
         const newUser = await Users.create({
             Name,
@@ -26,23 +28,25 @@ export const createUser = async (req, res) => {
 }
 
 export const loginUser = async (req,res) => {
-    try {
-        const {email ,password } = req.body;
 
-        if(!email || !password) {
+    try {
+
+        const {Email ,Password } = req.body;
+
+        if(!Email || !Password) {
             return res.status(400).send('All fields are required');
         }
 
         const users = await Users.findOne({
-            where: { email, },
-            attributes: ['Email'],
+            where: { Email, },
+            attributes: ['Email','Password'],
         });
 
-        const validEmail = await validateEmail(email)
+        const validEmail = await validateEmail(Email)
 
-        if(validEmail) return res.status(400).send('Incorrect Credentials');
+        if(!validEmail) return res.status(401).send('Incorrect Credentials');
 
-        const isPasswordValid = await bcrypt.compare(password,users.Password)
+        const isPasswordValid = await bcrypt.compare(String(Password),String(users.Password))
 
         if(isPasswordValid) {
             res.status(200).json({ message: 'Login Successful'})
@@ -50,10 +54,11 @@ export const loginUser = async (req,res) => {
         } else {
             return res.status(401).send('Incorrect Credentials')
         }
-                
+
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: err });
+        return res.status(500).send('Server error', error)
     }
+                
 }
 
 export const userDashboard = async (req,res) => {
