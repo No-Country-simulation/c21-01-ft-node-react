@@ -13,6 +13,8 @@ const incomeData = [
   { date: "2023-04-01", amount: 1600 },
   { date: "2023-05-01", amount: 1400 },
   { date: "2023-06-01", amount: 1700 },
+  { date: "2023-07-01", amount: 1900 },
+  { date: "2023-08-01", amount: 2500 },
 ];
 
 const expendData = [
@@ -22,6 +24,8 @@ const expendData = [
   { date: "2023-04-01", amount: 950 },
   { date: "2023-05-01", amount: 850 },
   { date: "2023-06-01", amount: 1000 },
+  { date: "2023-07-01", amount: 1600 },
+  { date: "2023-08-01", amount: 1500 },
 ];
 
 export const DashboardPage = () => {
