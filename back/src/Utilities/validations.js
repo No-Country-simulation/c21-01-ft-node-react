@@ -12,3 +12,16 @@ export const validateEmail = async (email) => {
         return false;
     }
 }
+
+export const validateUser = async (UserId) => {
+    try{
+        const user = await Users.findOne({
+            where: {UserId}
+        });
+        if(user === null) return false
+        return true;
+    } catch(err) {
+        console.error('Error validating user: ', err);
+        return false;
+    }
+}
