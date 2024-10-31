@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Graphics } from "../components/Graphics";
 import { Finance } from "../components/Finance";
 
+
 export const DashboardPage = () => {
   const [activePage, setActivePage] = useState("graphics");
   const [incomeData, setIncomeData] = useState([]);
