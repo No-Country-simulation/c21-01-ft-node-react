@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/db.js";
-import { Accounts } from "./accountsModel.js";
+import { Transactions } from "./transactionsModel.js";
 
 export const Users = sequelize.define("User", {
     UserId: {
@@ -21,6 +21,6 @@ export const Users = sequelize.define("User", {
     timestamps: false
 });
 
-Users.hasOne(Accounts, {foreignKey: 'UserId', sourceKey: 'UserId'});
+Users.hasMany(Transactions, {foreignKey: 'UserId', sourceKey: 'UserId'});
+Transactions.belongsTo(Users, {foreignKey: 'UserId', targetKey: 'UserId'});
 
-Accounts.belongsTo(Users, {foreignKey: 'UserId', targetKey: 'UserId'});
