@@ -79,14 +79,13 @@ export const userDashboard = async (req,res) => {
             where: {
                 TransactionId : userInformation.UserId,
                 TransactionType: {
-                    [Op.in] : ['Ingreso','Egreso','Cuenta']
+                    [Op.in] : ['Ingreso','Egreso']
                 },
             },
         })
 
         const expenses = transactionType.filter(t => t.TransactionType == 'Ingreso');
         const incomes = transactionType.filter(t => t.TransactionType == 'Egreso');
-        const account = transactionType.filter(t => t.TransactionType == 'Cuenta');
 
         const expensesAmount = expenses.reduce(                          
             (acc,t) => acc + t.Amount, 0
@@ -96,17 +95,12 @@ export const userDashboard = async (req,res) => {
             (acc,t) => acc + t.Amount, 0
         )
 
-        const accountAmount = account.reduce(
-            (acc,t) => acc + t.Amount, 0
-        )
-
         const gains = incomesAmount - expensesAmount;
 
         res.status(200).json({
             gain: gains, 
             expense: expensesAmount, 
             income: incomesAmount,
-            account: accountAmount
         })
 
     } catch (err) {
