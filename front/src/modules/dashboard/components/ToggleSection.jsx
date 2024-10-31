@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { handleDataSave } from "../services/handleDataSave";
 
 import { FieldGroup } from "./FieldGroup";
 import { TotalCount } from "./TotalCount";
@@ -19,7 +20,7 @@ export const ToggleSection = () => {
       title: "",
       date: "",
       amount: "",
-      errors: {}
+      errors: {},
     }))
   );
   const [expendData, setExpendData] = useState(
@@ -28,7 +29,7 @@ export const ToggleSection = () => {
       title: "",
       date: "",
       amount: "",
-      errors: {}
+      errors: {},
     }))
   );
 
@@ -36,6 +37,21 @@ export const ToggleSection = () => {
 
   const currentData = showIncome ? incomeData : expendData;
   const setCurrentData = showIncome ? setIncomeData : setExpendData;
+
+  const [saveStatus, setSaveStatus] = useState("idle");
+
+  const handleSave = () => {
+    const dataToSave = showIncome ? incomeData : expendData;
+    const result = handleDataSave(dataToSave);
+
+    if (result.success) {
+      setSaveStatus("success");
+    } else {
+      setSaveStatus("error");
+    }
+
+    setTimeout(() => setSaveStatus("idle"), 2000);
+  };
 
   return (
     <div>
@@ -71,7 +87,7 @@ export const ToggleSection = () => {
           <hr className="w-px h-6 bg-gray-200" />
 
           <div className="flex flex-row items-center gap-5">
-            <button className="w-fit h-6 p-4 flex items-center gap-2 rounded-md outline outline-1 outline-gray-300">
+            <button className="w-28 h-6 p-4 flex items-center justify-between rounded-md outline outline-1 outline-gray-300">
               <span className="text-primary-dark text-sm">Mes</span>
 
               <FontAwesomeIcon
@@ -80,7 +96,7 @@ export const ToggleSection = () => {
               />
             </button>
 
-            <button className="w-fit h-6 p-4 flex items-center gap-2 rounded-md outline outline-1 outline-gray-300">
+            <button className="w-36 h-6 p-4 flex items-center justify-center gap-2 rounded-md outline outline-1 outline-gray-300">
               <FontAwesomeIcon
                 icon={faFileArrowDown}
                 className="text-xs text-primary-dark"
@@ -89,6 +105,23 @@ export const ToggleSection = () => {
               <span className="text-primary-dark text-sm font-bold">
                 Exportar PDF
               </span>
+            </button>
+
+            <button
+              onClick={handleSave}
+              className={`w-36 h-6 p-4 flex items-center justify-center rounded-md font-bold transition-colors duration-300 ${
+                saveStatus === "success"
+                  ? "bg-green-500 text-white"
+                  : saveStatus === "error"
+                  ? "bg-red-500 text-white"
+                  : "bg-cyan-800 text-white"
+              }`}
+            >
+              {saveStatus === "success"
+                ? "Guardado!"
+                : saveStatus === "error"
+                ? "Error"
+                : "Guardar tabla"}
             </button>
           </div>
         </div>
