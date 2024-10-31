@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Line, Pie } from "react-chartjs-2";
-import axios from 'axios';
-import { useState,useEffect } from "react";
-import { Line } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
