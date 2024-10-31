@@ -102,15 +102,15 @@ export const userDashboard = async (req,res) => {
             { 
               expense: expenses.map(item => ({
                 amount: parseFloat(item.Amount),  
-                date: new Date(item.Date).toISOString().split('T')[0]
-   
+                name: item.Description,
+                date: new Date(item.Date).toISOString().split('T')[0]  
               }))
             },
             { 
               income: incomes.map(item => ({
                 amount: parseFloat(item.Amount),  
-                date: new Date(item.Date).toISOString().split('T')[0] 
-    
+                name: item.Description,
+                date: new Date(item.Date).toISOString().split('T')[0]  
               }))
             }
           ]);

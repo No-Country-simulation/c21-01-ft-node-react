@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import { useMemo } from "react";
-import axios from 'axios';
-import { useState,useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 import {
@@ -32,7 +30,6 @@ ChartJS.register(
 
 
 export const Graphics = ({incomeData, expendData}) => {
-
 
   const dates = useMemo(
     () => incomeData.map((entry) => entry.date),
