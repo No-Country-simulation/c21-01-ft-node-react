@@ -22,5 +22,5 @@ export const Users = sequelize.define("User", {
 });
 
 Users.hasMany(Transactions, {foreignKey: 'UserId', sourceKey: 'UserId'});
-
 Transactions.belongsTo(Users, {foreignKey: 'UserId', targetKey: 'UserId'});
+

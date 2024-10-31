@@ -5,6 +5,8 @@ import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
 
 export const createUser = async (req, res) => { 
+    console.log(req.body);
+
     try{
         const {Name, Email, Password} = req.body;
         
@@ -26,23 +28,25 @@ export const createUser = async (req, res) => {
 }
 
 export const loginUser = async (req,res) => {
-    try {
-        const {email ,password } = req.body;
 
-        if(!email || !password) {
+    try {
+
+        const {Email ,Password } = req.body;
+
+        if(!Email || !Password) {
             return res.status(400).send('All fields are required');
         }
 
         const users = await Users.findOne({
-            where: { email, },
-            attributes: ['Email'],
+            where: { Email, },
+            attributes: ['Email','Password'],
         });
 
-        const validEmail = await validateEmail(email)
+        const validEmail = await validateEmail(Email)
 
-        if(validEmail) return res.status(400).send('Incorrect Credentials');
+        if(!validEmail) return res.status(401).send('Incorrect Credentials');
 
-        const isPasswordValid = await bcrypt.compare(password,users.Password)
+        const isPasswordValid = await bcrypt.compare(String(Password),String(users.Password))
 
         if(isPasswordValid) {
             res.status(200).json({ message: 'Login Successful'})
@@ -50,25 +54,38 @@ export const loginUser = async (req,res) => {
         } else {
             return res.status(401).send('Incorrect Credentials')
         }
-                
+
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: err });
+        return res.status(500).send('Server error', error)
     }
+                
 }
 
 export const userDashboard = async (req,res) => {
+
+    const { id } = req.params;
+
     try {
+
+        const userInformation = await Users.findOne({
+            where: {
+                UserId: id
+            }
+        })
+
+        if(!userInformation) return res.status(404).json({ message: 'Account not found' })
+
         const transactionType = await Transactions.findAll({
             where: {
+                TransactionId : userInformation.UserId,
                 TransactionType: {
-                    [Op.in] : ['Ingreso','Egreso','Cuenta']
+                    [Op.in] : ['Ingreso','Egreso']
                 },
             },
         })
 
         const expenses = transactionType.filter(t => t.TransactionType == 'Ingreso');
         const incomes = transactionType.filter(t => t.TransactionType == 'Egreso');
-        const account = transactionType.filter(t => t.TransactionType == 'Cuenta');
 
         const expensesAmount = expenses.reduce(                          
             (acc,t) => acc + t.Amount, 0
@@ -78,13 +95,13 @@ export const userDashboard = async (req,res) => {
             (acc,t) => acc + t.Amount, 0
         )
 
-        const accountAmount = account.reduce(
-            (acc,t) => acc + t.Amount, 0
-        )
-
         const gains = incomesAmount - expensesAmount;
 
-        res.status(200).json({gain: gains, expense: expensesAmount, income: incomesAmount})
+        res.status(200).json({
+            gain: gains, 
+            expense: expensesAmount, 
+            income: incomesAmount,
+        })
 
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err });
