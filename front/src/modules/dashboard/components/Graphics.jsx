@@ -61,17 +61,14 @@ export const Graphics = ({ incomeData, expendData }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: "top", },
       title: {
         display: true,
         text: `Ingresos: ${totalIncome.toFixed(
           2
-        )}, Egresos: ${totalExpend.toFixed(
+        )}  |  Egresos: ${totalExpend.toFixed(
           2
-        )}, Ganancias: ${totalProfit.toFixed(2)}`,
-      },
-      layout: {
-        padding: 30,
+        )}  |  Ganancias: ${totalProfit.toFixed(2)}`,
       },
     },
     layout: {
@@ -84,7 +81,7 @@ export const Graphics = ({ incomeData, expendData }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "right",
+        position: "bottom",
         labels: {
           font: {
             size: 10,
@@ -94,12 +91,54 @@ export const Graphics = ({ incomeData, expendData }) => {
       },
       tooltip: {
         bodyFont: {
-          size: 10,
+          size: 12,
         },
       },
     },
     layout: {
-      padding: 20,
+      padding: 5,
+    },
+  };
+
+  const incomePieOptions = {
+    ...PieChartOptions,
+    plugins: {
+      ...PieChartOptions.plugins,
+      title: {
+        display: true,
+        text: "Ingresos",
+        font: {
+          size: 12,
+        },
+      },
+    },
+  };
+
+  const expendPieOptions = {
+    ...PieChartOptions,
+    plugins: {
+      ...PieChartOptions.plugins,
+      title: {
+        display: true,
+        text: "Egresos",
+        font: {
+          size: 12,
+        },
+      },
+    },
+  };
+
+  const profitPieOptions = {
+    ...PieChartOptions,
+    plugins: {
+      ...PieChartOptions.plugins,
+      title: {
+        display: true,
+        text: "Ganancias",
+        font: {
+          size: 12,
+        },
+      },
     },
   };
 
@@ -169,15 +208,15 @@ export const Graphics = ({ incomeData, expendData }) => {
       {
         label: "Ingresos",
         data: incomeAmounts,
-        borderColor: "green",
-        backgroundColor: "rgba(0, 255, 0, 0.3)",
+        borderColor: "#26FF2A",
+        backgroundColor: "rgba(38, 255, 42, 0.3)",
         fill: false,
       },
       {
         label: "Egresos",
         data: expendAmounts,
-        borderColor: "red",
-        backgroundColor: "rgba(255, 0, 0, 0.3)",
+        borderColor: "#FF1A1A",
+        backgroundColor: "rgba(255, 26, 26, 0.3)",
         fill: false,
       },
       {
@@ -192,19 +231,19 @@ export const Graphics = ({ incomeData, expendData }) => {
 
   return (
     <div className="w-full h-full relative p-4">
-      <div className="bg-slate-200 h-3/5 w-full mb-4 rounded-2xl shadow-md shadow-gray-300">
+      <div className="bg-slate-200 h-1/2 w-full mb-4 rounded-2xl shadow-md shadow-gray-300">
         <Line options={lineChartOptions} data={combinedLineData} />
       </div>
 
-      <div className="grid grid-cols-3 gap-4 h-1/3">
+      <div className="grid grid-cols-3 gap-4 h-2/5">
         <div className="bg-slate-200 h-full rounded-2xl shadow-md shadow-gray-300">
-          <Pie options={PieChartOptions} data={incomePieData} />
+          <Pie options={incomePieOptions} data={incomePieData} />
         </div>
         <div className="bg-slate-200 h-full rounded-2xl shadow-md shadow-gray-300">
-          <Pie options={PieChartOptions} data={expendPieData} />
+          <Pie options={expendPieOptions} data={expendPieData} />
         </div>
         <div className="bg-slate-200 h-full rounded-2xl shadow-md shadow-gray-300">
-          <Pie options={PieChartOptions} data={profitPieData} />
+          <Pie options={profitPieOptions} data={profitPieData} />
         </div>
       </div>
     </div>
