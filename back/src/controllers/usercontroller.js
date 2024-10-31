@@ -4,6 +4,7 @@ import { Users } from '../database/usersModel.js';
 import { validateEmail } from '../Utilities/validations.js';
 import bcrypt from 'bcrypt';
 
+
 export const createUser = async (req, res) => { 
     console.log(req.body);
 
@@ -39,7 +40,7 @@ export const loginUser = async (req,res) => {
 
         const users = await Users.findOne({
             where: { Email, },
-            attributes: ['Email','Password'],
+            attributes: ['UserId','Email','Password', 'Name'],
         });
 
         const validEmail = await validateEmail(Email)
@@ -49,8 +50,7 @@ export const loginUser = async (req,res) => {
         const isPasswordValid = await bcrypt.compare(String(Password),String(users.Password))
 
         if(isPasswordValid) {
-            res.status(200).json({ message: 'Login Successful'})
-
+            res.status(200).json({ message: 'Login Successfull', userId: users.UserId, nameUser: users.Name })
         } else {
             return res.status(401).send('Incorrect Credentials')
         }
@@ -63,13 +63,13 @@ export const loginUser = async (req,res) => {
 
 export const userDashboard = async (req,res) => {
 
-    const { id } = req.params;
+    const userId = req.query.userId
 
     try {
 
         const userInformation = await Users.findOne({
             where: {
-                UserId: id
+                UserId: userId
             }
         })
 
@@ -77,7 +77,7 @@ export const userDashboard = async (req,res) => {
 
         const transactionType = await Transactions.findAll({
             where: {
-                TransactionId : userInformation.UserId,
+                UserId : userInformation.UserId,
                 TransactionType: {
                     [Op.in] : ['Ingreso','Egreso']
                 },
@@ -88,21 +88,33 @@ export const userDashboard = async (req,res) => {
         const incomes = transactionType.filter(t => t.TransactionType == 'Egreso');
 
         const expensesAmount = expenses.reduce(                          
-            (acc,t) => acc + t.Amount, 0
+            (acc,t) => acc + parseInt(t.Amount), 0
         )
 
         const incomesAmount = incomes.reduce(
-            (acc,t) => acc + t.Amount, 0
+            (acc,t) => acc + parseInt(t.Amount), 0
         )
 
-        const gains = incomesAmount - expensesAmount;
+        const gains = Math.max(0, incomesAmount - expensesAmount);
 
-        res.status(200).json({
-            gain: gains, 
-            expense: expensesAmount, 
-            income: incomesAmount,
-        })
-
+        res.status(200).json([
+            { gain: gains },
+            { 
+              expense: expenses.map(item => ({
+                amount: parseFloat(item.Amount),  
+                date: new Date(item.Date).toISOString().split('T')[0]
+   
+              }))
+            },
+            { 
+              income: incomes.map(item => ({
+                amount: parseFloat(item.Amount),  
+                date: new Date(item.Date).toISOString().split('T')[0] 
+    
+              }))
+            }
+          ]);
+          
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err });
     }

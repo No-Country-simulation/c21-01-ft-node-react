@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import SuccessIcon from '../../../assets/succes.svg';
 import ErrorIcon from '../../../assets/error.svg';
+import axios from 'axios';
 
-
-export const Popup = ({ onClose, success, formType }) => {
+export const Popup = ({  onClose, success, UserId, formType  }) => {
   const navigate = useNavigate();
 
   const getTag = () => {
@@ -36,8 +36,12 @@ export const Popup = ({ onClose, success, formType }) => {
   };
   
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (success) {
+      await axios.get(`http://localhost:3000/users/dashboard`, {
+        params: { userId: UserId }
+      });
+      localStorage.setItem('userId', UserId)
       navigate("/dashboard");
     } else {
       onClose();
@@ -66,6 +70,7 @@ export const Popup = ({ onClose, success, formType }) => {
 };
 Popup.propTypes = {
   onClose: PropTypes.func.isRequired,
+  UserId: PropTypes.number,
   success: PropTypes.bool.isRequired,
   formType: PropTypes.oneOf(["login", "register"]).isRequired,
 };

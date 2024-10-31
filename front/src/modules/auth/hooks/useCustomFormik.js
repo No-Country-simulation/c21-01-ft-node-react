@@ -4,7 +4,7 @@ import {useState } from "react";
 
 export const useCustomFormik = (initialValues, validationSchema, formType) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [formResult, setFormResult] = useState({ success: false });
+  const [formResult, setFormResult] = useState({ success: false, userId: null});
 
   const closePopup = () => setShowPopup(false);
 
@@ -14,7 +14,7 @@ export const useCustomFormik = (initialValues, validationSchema, formType) => {
     onSubmit: async (values) => {
       const result = await handleFormSubmit(values, formType);
             
-      setFormResult({ success: result.success });
+      setFormResult({ success: result.success, userId: result.userId });
       setShowPopup(true);
     },
   });

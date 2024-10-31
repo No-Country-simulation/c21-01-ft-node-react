@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const handleFormSubmit = async (values, formType) => {
     try {
+      let userId = 0;
       if (formType === "register") {
         try {
           const res = await axios.post('http://localhost:3000/users/register', {
@@ -18,7 +19,7 @@ export const handleFormSubmit = async (values, formType) => {
         } catch (error) {
           return { success: false, message: error};
         }
-        return { success: true, message: 'User successfully created' };
+        return { success: true, userId: userId};
       } else if (formType === "login") {
         try {
           const res = await axios.post('http://localhost:3000/users/login', {
@@ -31,10 +32,12 @@ export const handleFormSubmit = async (values, formType) => {
             }
           }
           )
+          userId = res.data.userId;
+          localStorage.setItem('userName', res.data.nameUser)
         } catch (error) {
           return { success: false, message: error};
         }
-        return { success: true , message: 'Login Success!' };
+        return { success: true, userId};
       } else {
         return { success: false }
       }
