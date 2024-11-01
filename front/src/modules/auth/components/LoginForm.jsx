@@ -26,7 +26,7 @@ export const LoginForm = () => {
     loginSchema,
     "login"
   );
-  
+  console.log("%c formResult :", "background-color:#048A81", formResult);
   return (
     <div className="w-login-form flex flex-col justify-center items-center">
       <div className="mb-4">
@@ -91,14 +91,12 @@ export const LoginForm = () => {
             </Link>
           </div>
         </form>
-      
       ) : (
-        
-        <Popup 
-          onClose={closePopup} 
-          success={formResult.success}  // Solo pasa el valor booleano
-          UserId={formResult.userId}    // Pasa el UserId al componente Popup
-          formType="login" 
+        <Popup
+          onClose={closePopup}
+          success={formResult.success} // Solo pasa el valor booleano
+          UserId={formResult.userId} // Pasa el UserId al componente Popup
+          formType="login"
         />
       )}
     </div>

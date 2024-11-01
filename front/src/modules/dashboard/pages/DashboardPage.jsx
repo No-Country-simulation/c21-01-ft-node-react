@@ -30,7 +30,7 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     conexionDashboard();
-  });
+  }, []);
 
   const renderContent = () => {
     switch (activePage) {
