@@ -16,10 +16,12 @@ export const handleFormSubmit = async (values, formType) => {
             }
           }
           )
+          userId = res.data.userId;
+          localStorage.setItem('userName', res.data.nameUser)
         } catch (error) {
           return { success: false, message: error};
         }
-        return { success: true, userId: userId};
+        return { success: true, userId};
       } else if (formType === "login") {
         try {
           const res = await axios.post('http://localhost:3000/users/login', {
