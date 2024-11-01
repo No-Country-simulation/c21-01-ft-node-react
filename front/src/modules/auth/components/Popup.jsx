@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const Popup = ({ onClose, success, UserId, formType }) => {
   const navigate = useNavigate();
-
+  console.log("%c success :", "background-color:#192BC2", success);
   const getTag = () => {
     if (success) {
       return formType === "login"
@@ -41,7 +41,7 @@ export const Popup = ({ onClose, success, UserId, formType }) => {
 
   const handleButtonClick = async () => {
     if (success) {
-      await axios.get(`${import.meta.env.API_BASE}/users/dashboard`, {
+      await axios.get(`${import.meta.env.VITE_API_BASE}/users/dashboard`, {
         params: { userId: UserId },
       });
       localStorage.setItem("userId", UserId);
