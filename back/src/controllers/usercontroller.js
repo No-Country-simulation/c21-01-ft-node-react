@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 export const createUser = async (req, res) => {
   try {
     const { Name, Email, Password } = req.body;
-
+    
     const emailExists = await validateEmail(Email);
     if (emailExists) return res.status(400).send("Email already registered");
 
