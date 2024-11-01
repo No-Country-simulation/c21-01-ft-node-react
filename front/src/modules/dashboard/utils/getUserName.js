@@ -1,7 +1,7 @@
 export const getUserName = () => {
   try {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user?.name || "Usuario";
+    const user = localStorage.getItem('userName');
+    return user || "Usuario";
   } catch (error) {
     return error;
   }
