@@ -1,0 +1,11 @@
+{
+    "projects": {
+      "front": {
+        "root": "front"
+      },
+      "back": {
+        "root": "back"
+      }
+    }
+  }
+  

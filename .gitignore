@@ -4,3 +4,4 @@
 */build
 .husky/
 **/.env
+.DS_Store
