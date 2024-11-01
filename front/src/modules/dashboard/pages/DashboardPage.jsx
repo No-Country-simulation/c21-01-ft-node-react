@@ -15,7 +15,7 @@ export const DashboardPage = () => {
   const conexionDashboard = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/users/dashboard`,
+        `${import.meta.env.VITE_API_BASE}/users/dashboard`,
         {
           params: { userId: UserId },
         }
@@ -31,7 +31,7 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     conexionDashboard();
-  });
+  }, []);
 
   const renderContent = () => {
     switch (activePage) {
