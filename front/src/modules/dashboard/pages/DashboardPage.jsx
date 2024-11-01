@@ -4,7 +4,6 @@ import { Sidebar } from "../../dashboard/components/Sidebar";
 import axios from "axios";
 import { Graphics } from "../components/Graphics";
 import { Finance } from "../components/Finance";
-import { Calendar } from "../components/Calendar";
 
 export const DashboardPage = () => {
   const [activePage, setActivePage] = useState("graphics");
@@ -31,7 +30,7 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     conexionDashboard();
-  }, []);
+  });
 
   const renderContent = () => {
     switch (activePage) {
@@ -39,8 +38,6 @@ export const DashboardPage = () => {
         return <Graphics incomeData={incomeData} expendData={expendData} />;
       case "finance":
         return <Finance />;
-      case "calendar":
-        return <Calendar />;
       default:
         return <Graphics />;
     }
@@ -51,7 +48,7 @@ export const DashboardPage = () => {
       <Navbar />
       <div className="flex flex-1">
         <Sidebar setActivePage={setActivePage} />
-        <main className="flex-1 p-4 bg-white">{renderContent()}</main>
+        <main className="flex-1 pl-4 pr-4 bg-white">{renderContent()}</main>
       </div>
     </div>
   );
