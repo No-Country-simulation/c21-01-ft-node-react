@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importa FontAwesomeIcon
-import { faBell, faUser } from '@fortawesome/free-solid-svg-icons'; // Importa los iconos de notificaciones y usuario
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importa FontAwesomeIcon
+import { faBell, faUser } from "@fortawesome/free-solid-svg-icons"; // Importa los iconos de notificaciones y usuario
 import logo from "../../../assets/logotipo.svg";
 
 export const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => {
-    setDropdownOpen(!isDropdownOpen);
+    setDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -17,17 +17,21 @@ export const Navbar = () => {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             {/* Logotipo */}
             <div className="flex flex-shrink-0 items-center">
-              <img src={logo} alt="logo" className="w-48 h-full object-cover pl-4" />
+              <img
+                src={logo}
+                alt="logo"
+                className="w-48 h-full object-cover pl-4"
+              />
             </div>
           </div>
 
           <div className=" inset-y-0 flex justify-center items-center sm:static sm:inset-auto sm:ml-0 sm:pr-0">
             {/* Icono de notificaciones */}
-            <button
-              type="button"
-              className="relative"
-            >
-              <FontAwesomeIcon icon={faBell} className="text-primary h-6 w-5 pr-4" />
+            <button type="button" className="relative">
+              <FontAwesomeIcon
+                icon={faBell}
+                className="text-primary h-6 w-5 pr-4"
+              />
             </button>
 
             {/* Profile dropdown */}
@@ -41,7 +45,10 @@ export const Navbar = () => {
                   aria-haspopup="true"
                   onClick={handleDropdownToggle}
                 >
-                  <FontAwesomeIcon icon={faUser} className="text-primary h-6 w-5 pr-4" />
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="text-primary h-6 w-5 pr-4"
+                  />
                 </button>
               </div>
 

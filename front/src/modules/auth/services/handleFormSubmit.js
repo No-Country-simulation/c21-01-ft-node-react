@@ -5,7 +5,7 @@ export const handleFormSubmit = async (values, formType) => {
     let userId = 0;
     if (formType === "register") {
       try {
-        const res = await axios.post(
+        const { data } = await axios.post(
           `${import.meta.env.VITE_API_BASE}/users/register`,
           {
             Name: values.name,
@@ -18,8 +18,9 @@ export const handleFormSubmit = async (values, formType) => {
             },
           }
         );
-        userId = res.data.userId;
-        localStorage.setItem("userName", res.data.nameUser);
+        userId = data.res.UserId;
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("userName", data.res.Name);
       } catch (error) {
         return { success: false, message: error };
       }

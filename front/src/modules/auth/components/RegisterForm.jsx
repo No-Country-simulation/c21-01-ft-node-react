@@ -95,12 +95,11 @@ export const RegisterForm = () => {
             </Link>
           </div>
         </form>
-        
       ) : (
         <Popup
           success={formResult.success}
           formType="register"
-          UserId={formResult.userId}  
+          UserId={formResult.userId}
           onClose={closePopup}
         />
       )}
